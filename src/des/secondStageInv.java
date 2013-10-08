@@ -2,10 +2,10 @@
 package des;
 
 import java.math.BigInteger;
-import java.nio.ByteBuffer;
 
-public class secondStage {
-    
+
+public class secondStageInv {
+        
     int E[]={32,1,2,3,4,5,4,5,
              6,7,8,9,8,9,10,11,
              12,13,12,13,14,15,16,17,
@@ -26,37 +26,37 @@ public class secondStage {
     int sbox6[][] = {{12,1,10,15,9,2,6,8,0,13,3,4,14,7,5,11},{10,15,4,2,7,12,9,5,6,1,12,14,0,11,3,8},{9,14,15,5,2,8,12,3,7,0,4,10,1,13,11,6},{4,3,2,12,9,5,15,10,11,14,1,7,6,0,8,13}};
     int sbox7[][] = {{4,11,2,14,15,0,8,13,3,12,9,7,5,10,6,1},{13,0,11,7,4,9,1,10,14,3,5,12,2,15,8,6},{1,4,11,13,12,3,7,14,10,15,6,8,0,5,9,2},{6,11,13,8,1,4,10,7,9,5,0,15,14,2,3,12}};
     int sbox8[][] = {{13,2,8,4,6,15,11,1,10,9,3,14,5,0,12,7},{1,15,13,8,10,3,7,4,12,5,6,11,0,14,9,2},{7,11,4,1,9,12,14,2,0,6,10,13,15,3,5,8},{2,1,14,7,4,10,8,13,15,12,9,0,3,5,6,11}};
-        
-   
-    public long round16(long fsmessage, long[] keys){
+    
+    public long round16Inv(long fsmessage, long[] keys){
         
         String fsmessages = Long.toBinaryString(fsmessage);
         fsmessages = completeCeros(fsmessages,64);
         
-        String l = fsmessages.substring(0, 32);
-        String r = fsmessages.substring(32);        
+        String r = fsmessages.substring(0, 32);
+        String l = fsmessages.substring(32);        
         
-        String templ;        
+        String tempr;        
         
-        for(int i = 0; i<16; i++){ 
-            templ = l;
-            l = r;
-            r = xortoString(ffunction(keys[i], r), templ);            
+        for(int i = 15; i>=0; i--){ 
+            tempr = r;
+            r = l;
+            l = xortoString(ffunction(keys[i], l), tempr);            
         } 
         
         l = completeCeros(l,32);
         r = completeCeros(r,32);
-        String ssmessage = r + l;
+        String ssmessage = l + r;
         
         long ssmessage1 = parseLong(ssmessage,2);
         
         return ssmessage1;
+        
     }
     
     private static long parseLong(String s, int base) {
         return new BigInteger(s, base).longValue();
-    }   
-    
+    } 
+        
     private String xortoString(long res, String l){
         long resultado = res^Long.parseLong(l, 2);
         return Long.toBinaryString(resultado);
@@ -142,7 +142,7 @@ public class secondStage {
         return result;
         
     }
-    
+        
     private String completeCeros(String s, int l){
         
         while(s.length()<(l)){
@@ -150,5 +150,6 @@ public class secondStage {
         }
         return s;
     }
-    
-}
+        
+}    
+  

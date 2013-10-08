@@ -20,9 +20,6 @@ public class keyGenerator {
     
     public long[] generatekeys(long key){
         
-        System.out.println("");
-        System.out.println("");
-        
         long[] keys = new long[16];
         long pc1key = permutatioChoise1(key);
         

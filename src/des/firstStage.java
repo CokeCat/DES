@@ -16,7 +16,6 @@ public class firstStage {
         long temp, temp1;
         long pmessage = 0x0;
         int newpos;  
-        System.out.println();
         
         for(int i = 63; i>=0; i--){
             
