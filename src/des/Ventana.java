@@ -211,16 +211,22 @@ public class Ventana extends javax.swing.JFrame {
 
     private void cifrarBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cifrarBActionPerformed
         
-        keys = kg.generatekeys(parseLong(key1TF.getText(),16));
-        for(int i = 0;i<16;i++){
-            keysta += "Round " + (i+1) + " : " + Long.toHexString(keys[i]) + "\n";
+        if(key1TF.getText().length() == 16 && plaintextTF.getText().length() == 16){
+            keys = kg.generatekeys(parseLong(key1TF.getText(),16));
+            for(int i = 0;i<16;i++){
+                keysta += "Round " + (i+1) + " : " + Long.toHexString(keys[i]) + "\n";
+            }
+            keyArea.setText(keysta);
+            keysta = "";
+            fsmessage = fs.initialPermutation(parseLong(plaintextTF.getText(),16));
+            ssmessage = ss.round16(fsmessage, keys);
+            tsmessage = ts.finalPermutation(ssmessage);
+            ciphertextL.setText(Long.toHexString(tsmessage));
         }
-        keyArea.setText(keysta);
-        keysta = "";
-        fsmessage = fs.initialPermutation(parseLong(plaintextTF.getText(),16));
-        ssmessage = ss.round16(fsmessage, keys);
-        tsmessage = ts.finalPermutation(ssmessage);
-        ciphertextL.setText(Long.toHexString(tsmessage));
+        else{
+            ciphertextL.setText("Llave y mensaje deben ser de 16 caracteres");
+        }
+        
               
         
     }//GEN-LAST:event_cifrarBActionPerformed
@@ -245,16 +251,23 @@ public class Ventana extends javax.swing.JFrame {
     }//GEN-LAST:event_llaveAleatoriaCBItemStateChanged
 
     private void DescifrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DescifrarActionPerformed
-        keys = kg.generatekeys(parseLong(key1TF.getText(),16));
-        for(int i = 0;i<16;i++){
-            keysta += "Round " + i + " : " + Long.toHexString(keys[i]) + "\n";
+        
+        if(key1TF.getText().length() == 16 && plaintextTF.getText().length() == 16){
+            keys = kg.generatekeys(parseLong(key1TF.getText(),16));
+            for(int i = 0;i<16;i++){
+                keysta += "Round " + i + " : " + Long.toHexString(keys[i]) + "\n";
+            }
+            keyArea.setText(keysta);
+            keysta = "";
+            fsimessage = fs.initialPermutation(parseLong(plaintextTF.getText(),16));
+            ssimessage = ssi.round16Inv(fsimessage, keys);
+            tsimessage = ts.finalPermutation(ssimessage);
+            ciphertextL.setText(Long.toHexString(tsimessage));
         }
-        keyArea.setText(keysta);
-        keysta = "";
-        fsimessage = fs.initialPermutation(parseLong(plaintextTF.getText(),16));
-        ssimessage = ssi.round16Inv(fsimessage, keys);
-        tsimessage = ts.finalPermutation(ssimessage);
-        ciphertextL.setText(Long.toHexString(tsimessage));
+        else{
+            ciphertextL.setText("Llave y mensaje deben ser de 16 caracteres");
+        }
+        
     }//GEN-LAST:event_DescifrarActionPerformed
 
     /**
