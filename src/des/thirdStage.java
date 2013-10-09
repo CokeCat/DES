@@ -1,6 +1,8 @@
 
 package des;
 
+import java.math.BigInteger;
+
 public class thirdStage {
     
     int iip[]={40,8,48,16,56,24,64,32,

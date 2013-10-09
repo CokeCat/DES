@@ -1,6 +1,8 @@
 
 package des;
 
+import java.math.BigInteger;
+
 public class keyGenerator {
     
     int PC1[]={57,49,41,33,25,17,9,1,
@@ -37,7 +39,7 @@ public class keyGenerator {
             c = leftShift(c,i);
             d = leftShift(d,i); 
             ckey = ckey(c,d);
-            keys[i] = permutatioChoise2(Long.parseLong(ckey,2));
+            keys[i] = permutatioChoise2(parseLong(ckey,2));
         }        
         
         return keys;        
@@ -119,6 +121,8 @@ public class keyGenerator {
         
     }
     
-    
+    private static long parseLong(String s, int base) {
+        return new BigInteger(s, base).longValue();
+    } 
     
 }

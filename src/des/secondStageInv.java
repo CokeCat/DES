@@ -58,13 +58,13 @@ public class secondStageInv {
     } 
         
     private String xortoString(long res, String l){
-        long resultado = res^Long.parseLong(l, 2);
+        long resultado = res^parseLong(l, 2);
         return Long.toBinaryString(resultado);
     }
     
     private long ffunction(long key, String r){
        
-        long rn = Long.parseLong(r,2);
+        long rn = parseLong(r,2);
         long rne = expansion(rn);
         rn = key^rne;
         String rns = completeCeros(Long.toBinaryString(rn),48);
@@ -89,7 +89,7 @@ public class secondStageInv {
             total += c[i];
         }
         
-        long pp = permP(Long.parseLong(total,2));
+        long pp = permP(parseLong(total,2));
         return pp;
     }
     
